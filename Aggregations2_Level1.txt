@@ -1,0 +1,82 @@
+Q1. Write Mongo query to retrieve the unique city's from the buyers address as "\_id".
+Ans:- db.buyers.aggregate([
+    {$group : {_id : "$address.city"}}
+])
+
+Q2. Write Mongo query to retrieve the unique zip from the buyers address as "\_id".
+Ans:- db.buyers.aggregate([
+    {$group : { _id : "$address.zip"}}
+])
+
+Q3. Write Mongo query to retrieve the unique order_id in ascending order from the order_details.
+Ans:- db.order_details.aggregate([
+  {$group : 
+   {_id :  "$order_id"}},
+   { $sort: { "_id": 1 } }
+])
+
+Q4. Write Mongo query to retrieve the unique customer_id from the orders.
+Ans:- db.orders.aggregate([
+    {$group : {
+        _id : "$customer_id"
+    }}
+])
+
+Q5. Write Mongo query to retrieve the unique paymentMethod's from the payments collection as "\_id".
+Ans:- db.payments.aggregate([
+    { $group: { _id: "$paymentMethod" } }
+])
+
+
+Q6. Write Mongo query to retrieve the unique paymentstatus's from the payments collection as "\_id".
+Ans:- db.payments.aggregate([
+    {$group : {_id:"$paymentstatus"}}
+])
+
+Q7. Write Mongo query to retrieve the unique category_id product from products.
+Ans:- db.products.aggregate([
+    {$group : {_id : "$category_id"}}
+])
+
+Q8. Write a MongoDB query to aggregate the total sales per customer and list the top 5 customers by total sales amount. Include the customer's ID and their total sales in the output.
+Ans:- db.orders.aggregate([
+    { $group: { "_id": "$customer_id", total_sales: { $sum: "$total" } } },
+    { $sort: { total_sales: -1 } },
+    { $limit: 5 }
+])
+
+
+Q9. Aggregate the orders to count how many there are per status and show only the first 3 statuses based on the aggregated count.
+Ans:- db.orders.aggregate([
+    { $group: { _id: "$status", count: { $sum: 1 } } },
+    { $limit: 3 },
+    { $sort: { count: -1 } }
+])
+
+
+Q10. Write a MongoDB query to calculate the total amount of payments that have a success 
+status.
+Ans:- db.payments.aggregate([
+    { $match: { paymentstatus: "success" } },
+    { $group: { _id: null, total_amount: { $sum: "$amount" } } }
+])
+
+Q11. Aggregate suppliers to find the one with the highest total quantity of products supplied, filtering to only include suppliers with a total product quantity greater than 100.
+Ans:- db.products.aggregate([
+    { $group: { _id: "$supplier_id", total_quantity: { $sum: "$quantity" } } },
+    { $match: { total_quantity: { $gt: 100 } } },
+    { $sort: { total_quantity: -1 } },
+    { $limit: 1 }
+])
+
+Q12. Write a MongoDB query to find the top-selling product category based on total sales 
+revenue.
+Ans:- db.orders.aggregate([
+    { $lookup: { from: "products", localField: "product_id", foreignField: "_id", as: "product_info" } },
+    { $unwind: "$product_info" },
+    { $group: { _id: "$product_info.category_id", total_sales: { $sum: "$total" } } },
+    { $sort: { total_sales: -1 } },
+    { $limit: 1 }
+])
+
+

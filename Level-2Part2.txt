@@ -1,0 +1,29 @@
+Q1:- Find all documents where the gender is 'Male' and salary is less than or equal to 70000
+Ans:- db.Employees.find({ "gender": "Male", "salary": { $lte: 70000 } })
+
+
+Q2:- Retrieve documents where the age is greater than or equal to 30 and the last name is 
+not 'Bestall'
+Ans:- db.Employees.find({ "age": { $gte: 30 }, "last_name": { $ne: "Bestall" } })
+
+
+Q3:- Find all documents where the gender is 'Female' and (age is greater than 40 or salary 
+is less than 80000).
+Ans:- db.Employees.find({ "gender": "Female", $or: [{ "age": { $gt: 40 } }, { "salary": { $lt: 80000 } }] })
+
+
+Q4:- Retrieve all documents where the salary is greater than 100000.
+Ans:- db.Employees.find({ "salary": { $gt: 100000 } })
+
+
+Q5:- Find all documents where the age is equal to 30.
+Ans:- db.Employees.find({ "age": 30 })
+
+
+Q6:- Retrieve documents where the salary is less than 75000.
+Ans:- db.Employees.find({ "salary": { $lt: 75000 } })
+
+
+Q7:- Find all documents where the age is less than 35 and the salary is greater than or 
+equal to 80000.
+Ans:- db.Employees.find({ "age": { $lt: 35 }, "salary": { $gte: 80000 } })

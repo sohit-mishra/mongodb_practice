@@ -1,0 +1,151 @@
+Q1 :- How do you insert a new document into a collection named products with the following details: name: "Laptop", price: 1200, category: "Electronics"?
+Ans:-
+
+db.products.insertMany([
+{
+name: "Laptop",
+price: 1200,
+category: "Electronics"
+},
+{
+name: "Smartphone",
+price: 800,
+category: "Electronics"
+},
+{
+name: "E-Reader",
+price: 200,
+category: "Electronics"
+},
+{
+name: "Desk",
+price: 450,
+category: "Furniture"
+},
+{
+name: "Chair",
+price: 150,
+category: "Furniture"
+},
+{
+name: "Notebook",
+price: 5,
+category: "Stationery"
+},
+{
+name: "Table Lamp",
+price: 60,
+category: "Furniture"
+},
+{
+name: "Bookshelf",
+price: 120,
+category: "Furniture"
+},
+{
+name: "Novel",
+price: 20,
+category: "Books"
+},
+{
+name: "Science Textbook",
+price: 45,
+category: "Books"
+}
+]
+)
+
+Q2: - How do you find all documents in the products collection where the category is "Electronics"?
+
+Ans:- db.products.find({"category" :"Electronics"})
+
+Q3 :- How do you update the price of the "Laptop" in the products collection to 1000?
+Ans:- db.products.updateOne({"name":"Laptop"},{"$set": {"price":"1000"}})
+
+Q4 :- How do you find products in the products collection that are in the "Electronics" category and have a price less than 1500?
+Ans:- db.products.find({"category":"Electronics"}, {"&lte":{"price":1500}})
+
+Q5 :- How do you find products in the products collection that are either in the "Electronics" category or have a price less than 500?
+Ans:- db.products.find({
+"$or": [
+      { "category": "Electronics" },
+      { "price": { "$lt": 500 } }
+]
+})
+
+Q6 :- How do you increment the price of all products in the products collection by 200?
+Ans:- db.products.updateMany(
+      {},
+      { "$inc": { "price": 200 } }
+)
+
+Q7 :- How do you find all products in the products collection with a price between 500 and 1500?
+Ans:- db.products.find({ "price": { "$gte": 500, "$lte": 1500 } })
+
+Q8 :- How do you delete all products from the products collection that are in the "Furniture" category?
+Ans:- db.products.deleteMany({ "category": "Furniture" })
+
+Q9 :- How do you count the number of products in the "Electronics" category in the products collection?
+Ans:- db.products.countDocuments({ "category": "Electronics" })
+
+Q10 :- How do you find all products in the products collection that are not in the "Electronics" category?
+Ans:- db.products.find({ "category": { "$ne": "Electronics" } })
+
+Q11 :- How do you insert multiple documents into the users collection with the following details: { name: "Alice", age: 30 }, { name: "Bob", age: 25 }?
+Ans:- db.users.insertMany([
+  {
+    "name": "Laptop",
+    "price": 1200,
+    "category": "Electronics"
+  },
+  {
+    "name": "Smartphone",
+    "price": 800,
+    "category": "Electronics"
+  },
+  {
+    "name": "E-Reader",
+    "price": 200,
+    "category": "Electronics"
+  },
+  {
+    "name": "Desk",
+    "price": 450,
+    "category": "Furniture"
+  },
+  {
+    "name": "Chair",
+    "price": 150,
+    "category": "Furniture"
+  },
+  {
+    "name": "Notebook",
+    "price": 5,
+    "category": "Stationery"
+  },
+  {
+    "name": "Table Lamp",
+    "price": 60,
+    "category": "Furniture"
+  },
+  {
+    "name": "Bookshelf",
+    "price": 120,
+    "category": "Furniture"
+  },
+  {
+    "name": "Novel",
+    "price": 20,
+    "category": "Books"
+  },
+  {
+    "name": "Science Textbook",
+    "price": 45,
+    "category": "Books"
+  }
+]
+)
+
+Q12 :- How do you find documents in the products collection where the category is either "Electronics" or "Books"?
+Ans:- db.products.find({ "category": { "$in": ["Electronics", "Books"] } })
+
