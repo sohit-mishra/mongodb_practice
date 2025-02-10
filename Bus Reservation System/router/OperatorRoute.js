@@ -1,0 +1,1 @@
+const { CreateOperator, updateOperator, deleteOperator } = require('../controller/OperatorController');
