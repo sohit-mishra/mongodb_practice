@@ -19,10 +19,10 @@ const CreateRoute = async (req, res) => {
 
 const updateRoute = async (req, res) => {
     try {
-        const { routeId } = req.params;
+        const { route } = req.params;
         const updates = req.body;
 
-        const updateRoutes = await Route.findByIdAndUpdate(routeId, updates, { new: true });
+        const updateRoutes = await Route.findByIdAndUpdate(route, updates, { new: true });
 
         if (!updateRoutes) {
             return res.status(404).json({ message: 'Route not found' });
@@ -36,9 +36,9 @@ const updateRoute = async (req, res) => {
 
 const deleteRoute = async (req, res) => {
     try {
-        const { routeId } = req.params;
+        const { route } = req.params;
 
-        const deletedRoutes = await Route.findByIdAndUpdate(routeId, updates, { new: true });
+        const deletedRoutes = await Route.findByIdAndUpdate(route, updates, { new: true });
 
         if (!deletedRoutes) {
             return res.status(404).json({ message: 'Route not found' });
